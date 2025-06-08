@@ -1,0 +1,37 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Backend for the Job Application Assistant"
+authors = [
+    { name = "Your Name", email = "your.email@example.com" },
+]
+dependencies = [
+    "fastapi>=0.111.0",
+    "uvicorn[standard]>=0.29.0",
+    "pydantic>=2.7.1",
+    "python-dotenv>=1.0.1",
+]
+readme = "README.md"
+requires-python = ">= 3.8"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "ruff>=0.4.5",
+]
+
+[tool.ruff]
+# Set the maximum line length to match the Black formatter.
+line-length = 110  # chnage to 88 later which is standard
+
+[tool.ruff.lint]
+# Enable Pyflakes (F) and pycodestyle (E) error rules,
+# isort (I) for import sorting, and pyupgrade (UP) for modernizing code.
+select = ["E", "F", "I", "UP"]
+
+[tool.ruff.format]
+# Use double quotes for strings.
+quote-style = "double"
