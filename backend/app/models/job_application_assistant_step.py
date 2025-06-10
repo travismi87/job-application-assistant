@@ -6,7 +6,6 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from ..core.enums import JobApplicationStatus, JobAssistantStep
 from .base_model import BaseModel
-from .job_application import JobApplication
 from .mixins import SoftDeleteMixin, TimestampMixin
 
 if TYPE_CHECKING:

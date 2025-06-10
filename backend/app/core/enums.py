@@ -193,3 +193,16 @@ class JobApplicationPriority(str, enum.Enum):
     MEDIUM = "medium"
     LOW = "low"
     NONE = "none"
+
+
+class SSOProvider(str, enum.Enum):
+    """Enum representing different Single Sign-On (SSO) providers."""
+
+    GOOGLE = "google"
+    MICROSOFT = "microsoft"
+    GITHUB = "github"
+    FACEBOOK = "facebook"
+    OKTA = "okta"
+    DISCORD = "discord"
+    APPLE = "apple"
+    CUSTOM = "custom"

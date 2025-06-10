@@ -5,13 +5,13 @@ from sqlalchemy import TIMESTAMP, UUID, ForeignKey, String, func
 from sqlalchemy.dialects.postgresql import ENUM as PG_ENUM
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from ..core.enums import JobApplicationStatus, JobAssistantStep, JobType
+from ..core.enums import JobApplicationStatus, JobType
 from .base_model import BaseModel
 from .document import Document
 from .mixins import SoftDeleteMixin, TimestampMixin
-from .user import User
 
 if TYPE_CHECKING:
+    from .job_application_assistant_step import JobApplicationAssistantStep
     from .user import User
 
 
@@ -36,8 +36,8 @@ class JobApplication(BaseModel, TimestampMixin, SoftDeleteMixin):
         PG_ENUM(JobApplicationStatus), default=JobApplicationStatus.PENDING, nullable=False
     )
     job_type: Mapped[JobType] = mapped_column(PG_ENUM(JobType), default=JobType.FULL_TIME, nullable=False)
-    assisant_step: Mapped[JobAssistantStep] = mapped_column(
-        PG_ENUM(JobAssistantStep), default=JobAssistantStep.INITIAL, nullable=False
+    assistant_steps: Mapped[List[JobApplicationAssistantStep]] = relationship(
+        "JobApplicationAssistantStep", back_populates="job_application", cascade="all, delete-orphan"
     )
     documents: Mapped[List[Document]] = relationship(
         "Document", back_populates="job_application", cascade="all, delete-orphan"

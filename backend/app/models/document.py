@@ -17,7 +17,6 @@ from .base_model import BaseModel
 from .custom_types.path_type import PathType
 from .job_application import JobApplication
 from .mixins import SoftDeleteMixin, TimestampMixin
-from .user import User
 
 if TYPE_CHECKING:
     from .user import User
