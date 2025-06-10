@@ -12,6 +12,8 @@ from ..core.enums import (
     DocumentType,
     DocumentVersion,
     DocumentVisibility,
+    FileType,
+    MimeType,
 )
 from .base_model import BaseModel
 from .custom_types.path_type import PathType
@@ -19,6 +21,7 @@ from .job_application import JobApplication
 from .mixins import SoftDeleteMixin, TimestampMixin
 
 if TYPE_CHECKING:
+    from .document_job_application import DocumentJobApplication
     from .user import User
 
 
@@ -34,8 +37,10 @@ class Document(BaseModel, TimestampMixin, SoftDeleteMixin):
     job_application_id: Mapped[uuid.UUID | None] = mapped_column(
         ForeignKey("job_application.id"), nullable=True
     )
-    job_application: Mapped[JobApplication | None] = relationship(
-        "JobApplication", back_populates="documents"
+    job_applications: Mapped[list[JobApplication]] = relationship(
+        "JobApplication",
+        secondary=DocumentJobApplication,
+        back_populates="documents",
     )
 
     title: Mapped[String] = mapped_column(String, nullable=False)
@@ -45,6 +50,8 @@ class Document(BaseModel, TimestampMixin, SoftDeleteMixin):
     type: Mapped[DocumentType] = mapped_column(
         PG_ENUM(DocumentType), default=DocumentType.GENERAL, nullable=False
     )
+    mime_type: Mapped[MimeType | None] = mapped_column(PG_ENUM(MimeType), default=None, nullable=True)
+    file_type: Mapped[FileType | None] = mapped_column(PG_ENUM(FileType), default=None, nullable=True)
     status: Mapped[DocumentStatus] = mapped_column(
         PG_ENUM(DocumentStatus), default=DocumentStatus.PENDING, nullable=False
     )

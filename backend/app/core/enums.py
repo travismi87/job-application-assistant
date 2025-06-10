@@ -44,12 +44,12 @@ class JobAssistantStep(str, enum.Enum):
     """
 
     INITIAL = "initial"
-    PART_1 = "part_1"
-    PART_2 = "part_2"
-    PART_3 = "part_3"
-    PART_4 = "part_4"
-    PART_5 = "part_5"
-    PART_6 = "part_6"
+    MASTER_LIST = "master_list"
+    TAILORED_RESUME = "tailored_resume"
+    TAILORED_COVER_LETTER = "tailored_cover_letter"
+    CANDIDATE_VALIDATION = "candidate_validation"
+    APPLICATION_TIPS = "application_tips"
+    HIRING_MANAGER_REVIEW = "hiring_manager_review"
 
 
 class DocumentType(str, enum.Enum):
@@ -137,6 +137,7 @@ class MimeType(str, enum.Enum):
     TXT = "text/plain"
     HTML = "text/html"
     JSON = "application/json"
+    UNKNOWN = "application/octet-stream"
 
 
 class FileType(str, enum.Enum):
@@ -162,6 +163,7 @@ class FileType(str, enum.Enum):
     TXT = "txt"
     HTML = "html"
     JSON = "json"
+    UNKNOWN = "unknown"
 
 
 class JobType(str, enum.Enum):

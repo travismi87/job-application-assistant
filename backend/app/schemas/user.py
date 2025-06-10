@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, List
 
 from pydantic import UUID4, EmailStr, Field
 
@@ -20,6 +20,33 @@ class UserRequestBase(RequestBase):
 
 class UserResponseBase(ResponseBase):
     pass
+
+
+class UserInfo(UserInternalBase):
+    id: UUID4 = Field(
+        description="Unique identifier for the user",
+    )
+    username: str = Field(
+        description="Unique username for the user",
+    )
+    email: EmailStr = Field(
+        description="Email address of the user",
+    )
+    first_name: str | None = Field(
+        description="First name of the user",
+        default=None,
+    )
+    last_name: str | None = Field(
+        description="Last name of the user",
+        default=None,
+    )
+    role: UserRole = Field(
+        description="Role of the user in the system",
+    )
+    is_active: bool = Field(
+        description="Indicates if the user account is active",
+        default=True,
+    )
 
 
 class UserCreateRequest(UserRequestBase):
@@ -126,27 +153,9 @@ class UserUpdateRequest(UserMutableInternalBase):
 
 
 class UserResponse(UserResponseBase):
-    id: UUID4 = Field(
-        description="Unique identifier for the user",
-    )
-    username: str = Field(
-        description="Unique username for the user",
-    )
-    email: EmailStr = Field(
-        description="Email address of the user",
-    )
-    first_name: str | None = Field(
-        description="First name of the user",
-        default=None,
-    )
-    last_name: str | None = Field(
-        description="Last name of the user",
-        default=None,
-    )
-    role: UserRole = Field(
-        description="Role of the user in the system",
-    )
-    is_active: bool = Field(
-        description="Indicates if the user account is active",
-        default=True,
-    )
+    users: Annotated[
+        List[UserInfo],
+        Field(
+            description="List or single user information",
+        ),
+    ]

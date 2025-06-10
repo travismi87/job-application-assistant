@@ -11,6 +11,8 @@ from .custom_types.path_type import PathType
 from .mixins import SoftDeleteMixin, TimestampMixin
 
 if TYPE_CHECKING:
+    from .document import Document
+    from .job_application import JobApplication
     from .user_session import UserSession
 
 
@@ -37,6 +39,12 @@ class User(BaseModel, TimestampMixin, SoftDeleteMixin):
     avatar_url: Mapped[String | None] = mapped_column(String, nullable=True, default=None)
     sessions: Mapped[List[UserSession]] = relationship(
         "UserSession", back_populates="user", cascade="all, delete-orphan"
+    )
+    job_applications: Mapped[List[JobApplication]] = relationship(
+        "JobApplication", back_populates="user", cascade="all, delete-orphan"
+    )
+    documents: Mapped[List[Document]] = relationship(
+        "Document", back_populates="user", cascade="all, delete-orphan"
     )
 
     @property

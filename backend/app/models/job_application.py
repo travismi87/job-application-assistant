@@ -11,6 +11,7 @@ from .document import Document
 from .mixins import SoftDeleteMixin, TimestampMixin
 
 if TYPE_CHECKING:
+    from .document_job_application import DocumentJobApplication
     from .job_application_assistant_step import JobApplicationAssistantStep
     from .user import User
 
@@ -24,24 +25,24 @@ class JobApplication(BaseModel, TimestampMixin, SoftDeleteMixin):
     user_id: Mapped[UUID] = mapped_column(ForeignKey("user.id"), nullable=False)
     user: Mapped[User] = relationship("User", back_populates="job_applications")
 
-    job_title: Mapped[String | None] = mapped_column(String, nullable=True, default=None)
+    title: Mapped[String | None] = mapped_column(String, nullable=True, default=None)
     company_name: Mapped[String | None] = mapped_column(String, nullable=True, default=None)
-    job_location: Mapped[String | None] = mapped_column(String, nullable=True, default=None)
-    job_posting_url: Mapped[String | None] = mapped_column(String, nullable=True, default=None)
+    location: Mapped[String | None] = mapped_column(String, nullable=True, default=None)
+    posting_url: Mapped[String | None] = mapped_column(String, nullable=True, default=None)
     applied_at: Mapped[datetime] = mapped_column(
         TIMESTAMP(timezone=True), server_default=func.now(), nullable=False
     )
     notes: Mapped[String | None] = mapped_column(String, nullable=True)
-    job_application_status: Mapped[JobApplicationStatus] = mapped_column(
+    application_status: Mapped[JobApplicationStatus] = mapped_column(
         PG_ENUM(JobApplicationStatus), default=JobApplicationStatus.PENDING, nullable=False
     )
-    job_type: Mapped[JobType] = mapped_column(PG_ENUM(JobType), default=JobType.FULL_TIME, nullable=False)
+    type: Mapped[JobType] = mapped_column(PG_ENUM(JobType), default=JobType.FULL_TIME, nullable=False)
     assistant_steps: Mapped[List[JobApplicationAssistantStep]] = relationship(
         "JobApplicationAssistantStep", back_populates="job_application", cascade="all, delete-orphan"
     )
     documents: Mapped[List[Document]] = relationship(
-        "Document", back_populates="job_application", cascade="all, delete-orphan"
+        "Document", secondary=DocumentJobApplication, back_populates="job_applications"
     )
 
     def __repr__(self) -> str:
-        return f"<JobApplication(user_id={self.user_id}, status={self.job_application_status})>"
+        return f"<JobApplication(user_id={self.user_id}, status={self.application_status})>"
