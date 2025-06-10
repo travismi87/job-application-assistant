@@ -181,3 +181,7 @@ frontend/.env*
 
 # --- Local Environment ---
 .env*
+
+# --- Miscellaneous ---
+project_information.txt
+suggestions.md
