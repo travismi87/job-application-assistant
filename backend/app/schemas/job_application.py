@@ -3,46 +3,10 @@ from typing import Annotated, List
 from pydantic import UUID4, Field, HttpUrl
 
 from ..core.enums import JobApplicationStatus, JobType
-from .base_schema import InternalBase, MutableInternalBase, RequestBase, ResponseBase
+from .base_schema import InternalBase, RequestBase, ResponseBase
 
 
-class JobApplicationInternalBase(InternalBase):
-    """
-    Base model for internal job application schemas.
-    This model is used to define common fields and methods for internal job application schemas.
-    """
-
-    pass
-
-
-class JobApplicationMutableInternalBase(MutableInternalBase):
-    """
-    Mutable base model for internal job application schemas.
-    This model allows modification of fields after instantiation.
-    """
-
-    pass
-
-
-class JobApplicationRequestBase(RequestBase):
-    """
-    Base model for job application request schemas.
-    This model is used to define common fields and methods for job application request schemas.
-    """
-
-    pass
-
-
-class JobApplicationResponseBase(ResponseBase):
-    """
-    Base model for job application response schemas.
-    This model is used to define common fields and methods for job application response schemas.
-    """
-
-    pass
-
-
-class JobApplicationInfo(JobApplicationResponseBase):
+class JobApplicationInfo(ResponseBase):
     """
     Response schema for job application information.
     This schema defines the fields returned in the response for job application retrieval.
@@ -128,7 +92,7 @@ class JobApplicationInfo(JobApplicationResponseBase):
     ] = None
 
 
-class JobApplicationCreateRequest(JobApplicationRequestBase):
+class JobApplicationCreateRequest(RequestBase):
     """
     Request schema for creating a new job application.
     This schema defines the fields required to create a new job application.
@@ -212,7 +176,7 @@ class JobApplicationCreateRequest(JobApplicationRequestBase):
     ] = None
 
 
-class JobApplicationUpdateRequest(JobApplicationInternalBase):
+class JobApplicationUpdateRequest(InternalBase):
     """
     Request schema for updating an existing job application.
     This schema defines the fields that can be updated for a job application.

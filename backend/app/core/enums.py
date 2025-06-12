@@ -61,6 +61,7 @@ class DocumentType(str, enum.Enum):
     COVER_LETTER = "cover_letter"
     SUPPORTING_DOCUMENT = "supporting_document"
     MASTER_LIST = "master_list"
+    JOB_DESCRIPTION = "job_description"
     GENERAL = "general"
 
 

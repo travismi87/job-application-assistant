@@ -69,6 +69,14 @@ class ContactInfo(InternalBase):
             pattern=r"^\+?[1-9]\d{1,14}$",
         ),
     ]
+    address: Annotated[
+        str | None,
+        Field(
+            description="Address of the contact person",
+            default=None,
+            examples=["123 Main St, City, State, ZIP", "456 Elm St, City, State, ZIP"],
+        ),
+    ]
     links: Annotated[
         List[Link],
         Field(
@@ -416,7 +424,7 @@ class CertificationSection(InternalBase):
     ]
 
 
-class ProfessionalPrileStructure(InternalBase):
+class ProfessionalProfileStructure(InternalBase):
     """
     Base model for professional profile structure.
     This model is used to define common fields and methods for professional profile schemas.
@@ -429,9 +437,22 @@ class ProfessionalPrileStructure(InternalBase):
             examples=[
                 {
                     "name": "John Doe",
+                    "address": "123 Main St, City, State, ZIP",
                     "email": "john.doe@example.com",
-                    "phone": "+1-234-567-8901",
-                },
+                    "phone": "555-1234",
+                    "links": [
+                        {
+                            "url": "https://www.linkedin.com/in/johndoe",
+                            "title": "LinkedIn Profile",
+                            "description": "Professional LinkedIn profile of John Doe",
+                        },
+                        {
+                            "url": "https://www.github.com/johndoe",
+                            "title": "GitHub Profile",
+                            "description": "GitHub profile showcasing John Doe's projects",
+                        },
+                    ],
+                }
             ],
         ),
     ]

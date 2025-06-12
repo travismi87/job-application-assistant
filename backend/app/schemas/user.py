@@ -6,23 +6,12 @@ from ..core.enums import UserRole
 from .base_schema import InternalBase, MutableInternalBase, RequestBase, ResponseBase
 
 
-class UserInternalBase(InternalBase):
-    pass
+class UserInfo(InternalBase):
+    """
+    Schema for user information.
+    This schema defines the fields related to user details, such as ID, username, email, and role.
+    """
 
-
-class UserMutableInternalBase(MutableInternalBase):
-    pass
-
-
-class UserRequestBase(RequestBase):
-    pass
-
-
-class UserResponseBase(ResponseBase):
-    pass
-
-
-class UserInfo(UserInternalBase):
     id: UUID4 = Field(
         description="Unique identifier for the user",
         examples=["b3c1e2d4-5678-1234-9abc-1234567890ab"],
@@ -61,7 +50,12 @@ class UserInfo(UserInternalBase):
     )
 
 
-class UserCreateRequest(UserRequestBase):
+class UserCreateRequest(RequestBase):
+    """
+    Schema for user creation request.
+    This schema defines the fields required to create a new user, including username, email, password, and optional first and last names.
+    """
+
     username: Annotated[
         str,
         Field(
@@ -110,7 +104,12 @@ class UserCreateRequest(UserRequestBase):
     ]
 
 
-class UserUpdateRequest(UserMutableInternalBase):
+class UserUpdateRequest(MutableInternalBase):
+    """
+    Schema for user update request.
+    This schema defines the fields that can be updated for an existing user, including optional fields for username, email, first name, last name, role, and password.
+    """
+
     username: Annotated[
         str | None,
         Field(
@@ -181,7 +180,12 @@ class UserUpdateRequest(UserMutableInternalBase):
     ] = None
 
 
-class UserInfoResponse(UserResponseBase):
+class UserInfoResponse(ResponseBase):
+    """
+    Schema for user information response.
+    This schema defines the fields returned in the response for user information retrieval.
+    """
+
     users: Annotated[
         List[UserInfo],
         Field(
@@ -199,7 +203,12 @@ class UserInfoResponse(UserResponseBase):
     ]
 
 
-class UserIdResponse(UserResponseBase):
+class UserIdResponse(ResponseBase):
+    """
+    Schema for user ID response.
+    This schema defines the fields returned in the response for user ID retrieval.
+    """
+
     ids: Annotated[
         List[UUID4],
         Field(

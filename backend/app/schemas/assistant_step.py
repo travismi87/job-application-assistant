@@ -7,25 +7,7 @@ from .base_schema import InternalBase, MutableInternalBase
 from .mixins.timestamp_mixin import TimestampMixin
 
 
-class AssistantStepInternalBase(InternalBase):
-    """
-    Base model for internal assistant step schemas.
-    This model is used to define common fields and methods for internal assistant step schemas.
-    """
-
-    pass
-
-
-class AssistantStepMutableInternalBase(MutableInternalBase):
-    """
-    Mutable base model for internal assistant step schemas.
-    This model allows modification of fields after instantiation.
-    """
-
-    pass
-
-
-class AssistantStepInfo(AssistantStepInternalBase, TimestampMixin):
+class AssistantStepInfo(InternalBase, TimestampMixin):
     """
     Response schema for assistant step information.
     This schema defines the fields returned in the response for assistant step retrieval.
@@ -107,7 +89,7 @@ class AssistantStepInfo(AssistantStepInternalBase, TimestampMixin):
     ]
 
 
-class AssistantStepCreate(AssistantStepMutableInternalBase):
+class AssistantStepCreate(MutableInternalBase):
     """
     Request schema for creating a new assistant step.
     This schema defines the fields required to create a new assistant step.
@@ -153,7 +135,7 @@ class AssistantStepCreate(AssistantStepMutableInternalBase):
     ]
 
 
-class AssistantStepUpdate(AssistantStepMutableInternalBase):
+class AssistantStepUpdate(MutableInternalBase):
     """Request schema for updating an existing assistant step.
     This schema defines the fields that can be updated for an existing assistant step.
     """
