@@ -1,72 +1,23 @@
-# Custom GitHub Copilot Instructions (Full-Stack)
-
-### General Instructions (For All Code)
-- Always prioritize **readability, maintainability, and scalability**.
-- Write code with good design practices, including comments on *why* certain architectural decisions were made.
-- For complex algorithms or logic, include comments explaining the approach used.
-- Handle edge cases gracefully and implement clear exception handling.
-- For libraries or external dependencies, mention their usage and purpose in comments.
-- Use consistent, descriptive naming conventions that reveal intent.
-
-### Python Backend Instructions
-- **Code Style:** Follow the **PEP 8** style guide, using a line length of **88 characters** to align with modern formatters like `black` and `ruff`. Use 4 spaces for indentation.
-- **Clarity:**
-    - Write clear and concise comments for each function.
-    - Ensure functions have descriptive names and include full type hints using the `typing` module (e.g., `List[str]`).
-    - Provide docstrings for all modules, classes, and functions following **PEP 257** conventions.
-- **Architecture:**
-    - Break down complex functions into smaller, single-purpose functions.
-    - Adhere to the layered architecture (`api`, `services`, `crud`) we've designed.
-
-### Next.js/TypeScript Frontend Instructions
-- **Code Style:** Follow the **Prettier** configuration defined in the project. Use 2 spaces for indentation.
-- **Clarity:**
-    - Write clear and concise comments for complex components or custom hooks.
-    - Use descriptive names for components (PascalCase), hooks (useSomething), and variables (camelCase).
-    - Use **TypeScript** for all code. Avoid `any` and strive for strong type safety. Define clear `interface` or `type` definitions for props and API data structures.
-- **Architecture & Best Practices:**
-    - **Component Design:** Build small, reusable, single-purpose components. Favor composition over inheritance.
-    - **State Management:** Adhere to the established state management pattern:
-        - **Tanstack Query:** Use for ALL server state (fetching, caching, mutations).
-        - **Zustand:** Use ONLY for minimal, global UI state (e.g., theme, auth status).
-    - **Hooks:** Encapsulate reusable logic, especially for side effects, in custom hooks.
-
-### Edge Cases and Testing
-- **Backend:** Write unit tests for services and critical paths using `pytest`. Account for common edge cases like empty inputs and invalid data.
-- **Frontend:** Write tests for components and custom hooks using **Jest** and **React Testing Library**. Test for different states (loading, error, success) and user interactions.
-- Document tests with comments explaining the specific cases being tested.
-
-### Example of Proper Documentation (Python)
-```python
-def calculate_area(radius: float) -> float:
-    """Calculates the area of a circle given its radius.
-
-    Args:
-        radius (float): The radius of the circle. Must be a non-negative number.
-
-    Returns:
-        float: The area of the circle, calculated as π * radius².
-
-    Raises:
-        ValueError: If the radius is negative.
-    """
-    if radius < 0:
-        raise ValueError("Radius cannot be negative.")
-    import math
-    return math.pi * radius ** 2
-
 ---
 ### Commit Message Generation
-When asked to generate a commit message for staged changes, you MUST adhere strictly to the **Conventional Commits** standard.
+When asked to generate a commit message for staged changes, your goal is to create a message that is clean, logical, and tells the story of the change. Adhere to the following process:
 
-Your response should follow this structure:
+**1. Create the Subject Line:**
+- Analyze the changes to determine the primary intent.
+- Write a concise subject line in the **Conventional Commits** format: `<type>(<scope>): <subject>`.
+- The subject must be in the imperative mood (e.g., "add", "fix", "refactor") and under 50 characters.
 
-1.  **Header:** A header line in the format `<type>(<scope>): <subject>`.
-    - `type` must be one of: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`.
-    - `scope` should be a short word describing the part of the codebase affected (e.g., `api`, `schemas`, `auth`, `ui`).
-    - `subject` must be a short, imperative-mood description of the change.
+**2. Write the High-Level Summary (Body):**
+- After a single blank line, write one or two sentences describing the core problem that was solved or the main goal of the feature. This is the "why" behind the change.
 
-2.  **Body (Optional):** After a single blank line, provide a more detailed explanation of the "why" behind the change. Use bullet points for clarity.
+**3. Detail the Most Impactful Changes (Body):**
+- Do NOT simply list every file that was changed. Instead, analyze the diff and identify the 2-4 most significant **logical changes** or improvements.
+- Describe these changes as bullet points. Focus on the concepts, not just the code.
+- *Good Example:* "- Abstract user validation into a dedicated service class."
+- *Bad Example:* "- Modified auth_service.py and user_api.py."
 
-3.  **Footer (Required):** After another blank line, include a footer to reference the relevant GitHub Issue. Use the format `Refs: #<issue-number>`. If you don't know the issue number, use `Refs: #issue-number-goes-here` as a placeholder.
+**4. Add the Footer (Conditional):**
+- After another blank line, add a footer **if and only if** a relevant GitHub Issue number is mentioned in our chat or is clearly associated with the branch name.
+- If an issue number is available, use the format: `Refs: #<issue-number>`.
+- **If no issue number is known, omit the footer entirely.** Do not use placeholders.
 ---

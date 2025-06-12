@@ -11,8 +11,8 @@ from .document import Document
 from .mixins import SoftDeleteMixin, TimestampMixin
 
 if TYPE_CHECKING:
+    from .assistant_step import AssistantStep
     from .document_job_application import DocumentJobApplication
-    from .job_application_assistant_step import JobApplicationAssistantStep
     from .user import User
 
 
@@ -37,8 +37,8 @@ class JobApplication(BaseModel, TimestampMixin, SoftDeleteMixin):
         PG_ENUM(JobApplicationStatus), default=JobApplicationStatus.PENDING, nullable=False
     )
     type: Mapped[JobType] = mapped_column(PG_ENUM(JobType), default=JobType.FULL_TIME, nullable=False)
-    assistant_steps: Mapped[List[JobApplicationAssistantStep]] = relationship(
-        "JobApplicationAssistantStep", back_populates="job_application", cascade="all, delete-orphan"
+    assistant_steps: Mapped[List[AssistantStep]] = relationship(
+        "AssistantStep", back_populates="job_application", cascade="all, delete-orphan"
     )
     documents: Mapped[List[Document]] = relationship(
         "Document", secondary=DocumentJobApplication, back_populates="job_applications"

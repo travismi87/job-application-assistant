@@ -26,7 +26,7 @@ class JobApplicationStatus(str, enum.Enum):
     PENDING = "pending"
 
 
-class JobAssistantStatus(str, enum.Enum):
+class AssistantStepStatus(str, enum.Enum):
     """
     Enum representing the status of the job application assistant.
     """
@@ -38,7 +38,7 @@ class JobAssistantStatus(str, enum.Enum):
     NOT_STARTED = "not_started"
 
 
-class JobAssistantStep(str, enum.Enum):
+class AssistantStepType(str, enum.Enum):
     """
     Enum representing the steps in the job application assistant process.
     """
