@@ -1,6 +1,5 @@
 import uuid
-from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, List
 
 from sqlalchemy import ForeignKey, String, Text
 from sqlalchemy.dialects.postgresql import ENUM as PG_ENUM
@@ -17,11 +16,10 @@ from ..core.enums import (
 )
 from .base_model import BaseModel
 from .custom_types.path_type import PathType
-from .job_application import JobApplication
 from .mixins import SoftDeleteMixin, TimestampMixin
 
 if TYPE_CHECKING:
-    from .document_job_application import DocumentJobApplication
+    from .job_application import JobApplication
     from .user import User
 
 
@@ -32,20 +30,14 @@ class Document(BaseModel, TimestampMixin, SoftDeleteMixin):
     """
 
     user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("user.id"), nullable=False)
-    user: Mapped[User] = relationship("User", back_populates="documents")
-
-    job_application_id: Mapped[uuid.UUID | None] = mapped_column(
-        ForeignKey("job_application.id"), nullable=True
-    )
-    job_applications: Mapped[list[JobApplication]] = relationship(
-        "JobApplication",
-        secondary=DocumentJobApplication,
-        back_populates="documents",
+    user: Mapped["User"] = relationship("User", back_populates="documents")
+    file_path: Mapped[PathType | None] = mapped_column(PathType, nullable=True, default=None)
+    job_applications: Mapped[List["JobApplication"]] = relationship(
+        "JobApplication", secondary="document_job_application", back_populates="documents"
     )
 
     title: Mapped[String] = mapped_column(String, nullable=False)
     content: Mapped[Text | None] = mapped_column(Text, nullable=True)
-    file_path: Mapped[Path | None] = mapped_column(PathType, nullable=True, default=None)
 
     type: Mapped[DocumentType] = mapped_column(
         PG_ENUM(DocumentType), default=DocumentType.GENERAL, nullable=False

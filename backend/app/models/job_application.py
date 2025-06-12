@@ -7,12 +7,11 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from ..core.enums import JobApplicationStatus, JobType
 from .base_model import BaseModel
-from .document import Document
 from .mixins import SoftDeleteMixin, TimestampMixin
 
 if TYPE_CHECKING:
     from .assistant_step import AssistantStep
-    from .document_job_application import DocumentJobApplication
+    from .document import Document
     from .user import User
 
 
@@ -23,7 +22,7 @@ class JobApplication(BaseModel, TimestampMixin, SoftDeleteMixin):
     """
 
     user_id: Mapped[UUID] = mapped_column(ForeignKey("user.id"), nullable=False)
-    user: Mapped[User] = relationship("User", back_populates="job_applications")
+    user: Mapped["User"] = relationship("User", back_populates="job_applications")
 
     title: Mapped[String | None] = mapped_column(String, nullable=True, default=None)
     company_name: Mapped[String | None] = mapped_column(String, nullable=True, default=None)
@@ -37,11 +36,11 @@ class JobApplication(BaseModel, TimestampMixin, SoftDeleteMixin):
         PG_ENUM(JobApplicationStatus), default=JobApplicationStatus.PENDING, nullable=False
     )
     type: Mapped[JobType] = mapped_column(PG_ENUM(JobType), default=JobType.FULL_TIME, nullable=False)
-    assistant_steps: Mapped[List[AssistantStep]] = relationship(
+    assistant_steps: Mapped[List["AssistantStep"]] = relationship(
         "AssistantStep", back_populates="job_application", cascade="all, delete-orphan"
     )
-    documents: Mapped[List[Document]] = relationship(
-        "Document", secondary=DocumentJobApplication, back_populates="job_applications"
+    documents: Mapped[List["Document"]] = relationship(
+        "Document", secondary="document_job_application", back_populates="job_applications"
     )
 
     def __repr__(self) -> str:

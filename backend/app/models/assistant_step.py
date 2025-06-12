@@ -20,7 +20,9 @@ class AssistantStep(BaseModel, TimestampMixin, SoftDeleteMixin):
     """
 
     job_application_id: Mapped[UUID] = mapped_column(ForeignKey("job_application.id"), nullable=False)
-    job_application: Mapped[JobApplication] = relationship("JobApplication", back_populates="assistant_steps")
+    job_application: Mapped["JobApplication"] = relationship(
+        "JobApplication", back_populates="assistant_steps"
+    )
 
     step_name: Mapped[AssistantStepType] = mapped_column(
         PG_ENUM(AssistantStepType), nullable=False, default=AssistantStepType.INITIAL

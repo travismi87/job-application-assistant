@@ -37,13 +37,13 @@ class User(BaseModel, TimestampMixin, SoftDeleteMixin):
     )
     sso_email_verified: Mapped[Boolean] = mapped_column(Boolean, default=False, nullable=False)
     avatar_url: Mapped[String | None] = mapped_column(String, nullable=True, default=None)
-    sessions: Mapped[List[UserSession]] = relationship(
+    sessions: Mapped[List["UserSession"]] = relationship(
         "UserSession", back_populates="user", cascade="all, delete-orphan"
     )
-    job_applications: Mapped[List[JobApplication]] = relationship(
+    job_applications: Mapped[List["JobApplication"]] = relationship(
         "JobApplication", back_populates="user", cascade="all, delete-orphan"
     )
-    documents: Mapped[List[Document]] = relationship(
+    documents: Mapped[List["Document"]] = relationship(
         "Document", back_populates="user", cascade="all, delete-orphan"
     )
 

@@ -19,7 +19,7 @@ class UserSession(BaseModel, TimestampMixin, SoftDeleteMixin):
     """
 
     user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("user.id"), nullable=False)
-    user: Mapped[User] = relationship("User", back_populates="sessions")
+    user: Mapped["User"] = relationship("User", back_populates="sessions")
 
     session_token: Mapped[String] = mapped_column(String, unique=True, nullable=False)
     refresh_token: Mapped[String | None] = mapped_column(String, nullable=True)
