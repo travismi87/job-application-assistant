@@ -114,6 +114,16 @@ class DocumentVersion(str, enum.Enum):
     TEMPLATE = "template"
 
 
+class SkillProficiency(str, enum.Enum):
+    """
+    Enum representing different levels of skill proficiency.
+    """
+
+    PROFICIENT = "proficient"
+    EXPERIENCED = "experienced"
+    FAMILIAR_WITH = "familiar_with"
+
+
 class MimeType(str, enum.Enum):
     """
     Enum representing common MIME types for documents.

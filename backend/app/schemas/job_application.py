@@ -2,7 +2,7 @@ from typing import Annotated, List
 
 from pydantic import UUID4, Field, HttpUrl
 
-from ..core.enums import JobApplicationStatus
+from ..core.enums import JobApplicationStatus, JobType
 from .base_schema import InternalBase, MutableInternalBase, RequestBase, ResponseBase
 
 
@@ -52,6 +52,7 @@ class JobApplicationInfo(JobApplicationResponseBase):
         UUID4,
         Field(
             description="Unique identifier of the user who applied for the job",
+            examples=["b3c1e2d4-5678-1234-9abc-1234567890ab"],
         ),
     ]
     job_title: Annotated[
@@ -59,7 +60,9 @@ class JobApplicationInfo(JobApplicationResponseBase):
         Field(
             description="Title of the job being applied for",
             max_length=255,
+            min_length=1,
             default=None,
+            examples=["Software Engineer", "Data Analyst"],
         ),
     ] = None
     company_name: Annotated[
@@ -67,7 +70,9 @@ class JobApplicationInfo(JobApplicationResponseBase):
         Field(
             description="Name of the company for the job application",
             max_length=255,
+            min_length=1,
             default=None,
+            examples=["Tech Solutions Inc.", "Global Enterprises Ltd."],
         ),
     ] = None
     job_location: Annotated[
@@ -75,7 +80,9 @@ class JobApplicationInfo(JobApplicationResponseBase):
         Field(
             description="Location of the job being applied for",
             max_length=255,
+            min_length=1,
             default=None,
+            examples=["New York, NY", "Remote"],
         ),
     ] = None
     job_posting_url: Annotated[
@@ -83,6 +90,7 @@ class JobApplicationInfo(JobApplicationResponseBase):
         Field(
             description="URL of the job posting",
             default=None,
+            examples=["https://company.com/jobs/123"],
         ),
     ] = None
     notes: Annotated[
@@ -91,6 +99,7 @@ class JobApplicationInfo(JobApplicationResponseBase):
             description="Additional notes or comments for the job application",
             max_length=1000,
             default=None,
+            examples=["Follow up in two weeks", "Referred by Jane Smith"],
         ),
     ] = None
     job_application_status: Annotated[
@@ -98,14 +107,23 @@ class JobApplicationInfo(JobApplicationResponseBase):
         Field(
             description="Status of the job application",
             default=JobApplicationStatus.PENDING,
+            examples=[
+                JobApplicationStatus.PENDING,
+                JobApplicationStatus.ACCEPTED,
+                JobApplicationStatus.REJECTED,
+            ],
         ),
     ] = JobApplicationStatus.PENDING
     job_type: Annotated[
-        str | None,
+        JobType | None,
         Field(
-            description="Type of the job being applied for (e.g., Full-time, Part-time)",
-            max_length=50,
+            description="Type of the job being applied for",
             default=None,
+            examples=[
+                JobType.FULL_TIME,
+                JobType.PART_TIME,
+                JobType.CONTRACT,
+            ],
         ),
     ] = None
 
@@ -120,6 +138,7 @@ class JobApplicationCreateRequest(JobApplicationRequestBase):
         UUID4,
         Field(
             description="Unique identifier of the user applying for the job",
+            examples=["b3c1e2d4-5678-1234-9abc-1234567890ab"],
         ),
     ]
     job_title: Annotated[
@@ -127,7 +146,9 @@ class JobApplicationCreateRequest(JobApplicationRequestBase):
         Field(
             description="Title of the job being applied for",
             max_length=255,
+            min_length=1,
             default=None,
+            examples=["Software Engineer", "Data Analyst"],
         ),
     ] = None
     company_name: Annotated[
@@ -135,7 +156,9 @@ class JobApplicationCreateRequest(JobApplicationRequestBase):
         Field(
             description="Name of the company for the job application",
             max_length=255,
+            min_length=1,
             default=None,
+            examples=["Tech Solutions Inc.", "Global Enterprises Ltd."],
         ),
     ] = None
     job_location: Annotated[
@@ -143,7 +166,9 @@ class JobApplicationCreateRequest(JobApplicationRequestBase):
         Field(
             description="Location of the job being applied for",
             max_length=255,
+            min_length=1,
             default=None,
+            examples=["New York, NY", "Remote"],
         ),
     ] = None
     job_posting_url: Annotated[
@@ -151,6 +176,7 @@ class JobApplicationCreateRequest(JobApplicationRequestBase):
         Field(
             description="URL of the job posting",
             default=None,
+            examples=["https://company.com/jobs/123"],
         ),
     ] = None
     notes: Annotated[
@@ -159,6 +185,7 @@ class JobApplicationCreateRequest(JobApplicationRequestBase):
             description="Additional notes or comments for the job application",
             max_length=1000,
             default=None,
+            examples=["Follow up in two weeks", "Referred by Jane Smith"],
         ),
     ] = None
     job_application_status: Annotated[
@@ -166,6 +193,11 @@ class JobApplicationCreateRequest(JobApplicationRequestBase):
         Field(
             description="Status of the job application",
             default=JobApplicationStatus.PENDING,
+            examples=[
+                JobApplicationStatus.PENDING,
+                JobApplicationStatus.ACCEPTED,
+                JobApplicationStatus.REJECTED,
+            ],
         ),
     ] = JobApplicationStatus.PENDING
     job_type: Annotated[
@@ -173,7 +205,9 @@ class JobApplicationCreateRequest(JobApplicationRequestBase):
         Field(
             description="Type of the job being applied for (e.g., Full-time, Part-time)",
             max_length=50,
+            min_length=2,
             default=None,
+            examples=["Full-time", "Part-time", "Contract"],
         ),
     ] = None
 
@@ -188,6 +222,7 @@ class JobApplicationUpdateRequest(JobApplicationInternalBase):
         UUID4,
         Field(
             description="Unique identifier of the user applying for the job",
+            examples=["b3c1e2d4-5678-1234-9abc-1234567890ab"],
         ),
     ]
     job_title: Annotated[
@@ -195,7 +230,9 @@ class JobApplicationUpdateRequest(JobApplicationInternalBase):
         Field(
             description="Title of the job being applied for",
             max_length=255,
+            min_length=1,
             default=None,
+            examples=["Software Engineer", "Data Analyst"],
         ),
     ] = None
     company_name: Annotated[
@@ -203,7 +240,9 @@ class JobApplicationUpdateRequest(JobApplicationInternalBase):
         Field(
             description="Name of the company for the job application",
             max_length=255,
+            min_length=1,
             default=None,
+            examples=["Tech Solutions Inc.", "Global Enterprises Ltd."],
         ),
     ] = None
     job_location: Annotated[
@@ -211,7 +250,9 @@ class JobApplicationUpdateRequest(JobApplicationInternalBase):
         Field(
             description="Location of the job being applied for",
             max_length=255,
+            min_length=1,
             default=None,
+            examples=["New York, NY", "Remote"],
         ),
     ] = None
     job_posting_url: Annotated[
@@ -219,6 +260,7 @@ class JobApplicationUpdateRequest(JobApplicationInternalBase):
         Field(
             description="URL of the job posting",
             default=None,
+            examples=["https://company.com/jobs/123"],
         ),
     ] = None
     notes: Annotated[
@@ -227,6 +269,7 @@ class JobApplicationUpdateRequest(JobApplicationInternalBase):
             description="Additional notes or comments for the job application",
             max_length=1000,
             default=None,
+            examples=["Follow up in two weeks", "Referred by Jane Smith"],
         ),
     ] = None
     job_application_status: Annotated[
@@ -234,6 +277,11 @@ class JobApplicationUpdateRequest(JobApplicationInternalBase):
         Field(
             description="Status of the job application",
             default=JobApplicationStatus.PENDING,
+            examples=[
+                JobApplicationStatus.PENDING,
+                JobApplicationStatus.ACCEPTED,
+                JobApplicationStatus.REJECTED,
+            ],
         ),
     ] = JobApplicationStatus.PENDING
     job_type: Annotated[
@@ -241,7 +289,9 @@ class JobApplicationUpdateRequest(JobApplicationInternalBase):
         Field(
             description="Type of the job being applied for (e.g., Full-time, Part-time)",
             max_length=50,
+            min_length=2,
             default=None,
+            examples=["Full-time", "Part-time", "Contract"],
         ),
     ] = None
 
@@ -256,5 +306,8 @@ class JobApplicationListResponse(ResponseBase):
         List[JobApplicationInfo],
         Field(
             description="List or single job application information",
+            examples=[
+                [{"user_id": "b3c1e2d4-5678-1234-9abc-1234567890ab", "job_title": "Software Engineer"}]
+            ],
         ),
     ]
