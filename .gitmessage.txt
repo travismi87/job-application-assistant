@@ -1,0 +1,23 @@
+# --- Commit Message Header (Required) ---
+# Type: feat, fix, docs, style, refactor, test, chore
+# Scope: Optional, e.g., (auth), (models), (api), (ui)
+# Subject: Imperative mood, max 50 chars, no period at the end
+# Example: feat(auth): add JWT token generation endpoint
+<type>(<scope>): <subject>
+
+
+# --- Commit Message Body (Optional) ---
+# Explain the "why" and "what" of the change, not the "how".
+# Use bullet points for impactful changes. This is where your
+# detailed notes go.
+#
+# - High-impact bullet point 1
+# - High-impact bullet point 2
+
+
+# --- Commit Message Footer (Optional) ---
+# Reference GitHub issues here. Use "Fixes #123" to auto-close issues.
+# Also use for BREAKING CHANGE notifications.
+#
+# Fixes: #<issue-number>
+# Refs: #<issue-number> (For commits related to an issue but not closing it)

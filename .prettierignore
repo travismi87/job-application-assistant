@@ -1,0 +1,16 @@
+# Ignore dependency directories
+node_modules/
+.next/
+.venv/
+
+# Ignore build output
+dist/
+build/
+
+# Ignore package lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Ignore the entire backend folder, as it will be formatted by Black/Ruff
+/backend/
