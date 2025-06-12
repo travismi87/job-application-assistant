@@ -1,7 +1,7 @@
-from .SoftDeleteMixin import SoftDeleteMixin
-from .TimestampMixin import TimestampMixin
+from .soft_delete_mixin import SoftDeleteMixin
+from .timestamp_mixin import TimestampMixin
 
 __all__ = [
-    "TimestampMixin",
     "SoftDeleteMixin",
+    "TimestampMixin",
 ]

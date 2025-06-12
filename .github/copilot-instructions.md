@@ -54,3 +54,19 @@ def calculate_area(radius: float) -> float:
         raise ValueError("Radius cannot be negative.")
     import math
     return math.pi * radius ** 2
+
+---
+### Commit Message Generation
+When asked to generate a commit message for staged changes, you MUST adhere strictly to the **Conventional Commits** standard.
+
+Your response should follow this structure:
+
+1.  **Header:** A header line in the format `<type>(<scope>): <subject>`.
+    - `type` must be one of: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`.
+    - `scope` should be a short word describing the part of the codebase affected (e.g., `api`, `schemas`, `auth`, `ui`).
+    - `subject` must be a short, imperative-mood description of the change.
+
+2.  **Body (Optional):** After a single blank line, provide a more detailed explanation of the "why" behind the change. Use bullet points for clarity.
+
+3.  **Footer (Required):** After another blank line, include a footer to reference the relevant GitHub Issue. Use the format `Refs: #<issue-number>`. If you don't know the issue number, use `Refs: #issue-number-goes-here` as a placeholder.
+---

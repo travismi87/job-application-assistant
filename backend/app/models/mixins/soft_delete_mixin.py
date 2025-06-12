@@ -13,9 +13,10 @@ class SoftDeleteMixin:
     Soft delete mixin for models.
     """
 
-    def soft_delete(self):
+    def soft_delete(self) -> None:
         """
         Marks the record as deleted without actually removing it from the database.
+        Sets 'is_deleted' to True.
         """
         self.is_deleted = True
         self.deleted_at = func.now()
