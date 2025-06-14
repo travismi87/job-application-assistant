@@ -40,24 +40,38 @@ class Document(BaseModel, TimestampMixin, SoftDeleteMixin):
     content: Mapped[Text | None] = mapped_column(Text, nullable=True)
 
     type: Mapped[DocumentType] = mapped_column(
-        PG_ENUM(DocumentType), default=DocumentType.GENERAL, nullable=False
+        PG_ENUM(DocumentType, name="document_type", create_type=True),
+        default=DocumentType.GENERAL,
+        nullable=False,
     )
-    mime_type: Mapped[MimeType | None] = mapped_column(PG_ENUM(MimeType), default=None, nullable=True)
-    file_type: Mapped[FileType | None] = mapped_column(PG_ENUM(FileType), default=None, nullable=True)
+    mime_type: Mapped[MimeType | None] = mapped_column(
+        PG_ENUM(MimeType, name="mime_type", create_type=True), default=None, nullable=True
+    )
+    file_type: Mapped[FileType | None] = mapped_column(
+        PG_ENUM(FileType, name="file_type", create_type=True), default=None, nullable=True
+    )
     status: Mapped[DocumentStatus] = mapped_column(
-        PG_ENUM(DocumentStatus), default=DocumentStatus.PENDING, nullable=False
+        PG_ENUM(DocumentStatus, name="document_status", create_type=True),
+        default=DocumentStatus.PENDING,
+        nullable=False,
     )
     visibility: Mapped[DocumentVisibility] = mapped_column(
-        PG_ENUM(DocumentVisibility), default=DocumentVisibility.PRIVATE, nullable=False
+        PG_ENUM(DocumentVisibility, name="document_visibility", create_type=True),
+        default=DocumentVisibility.PRIVATE,
+        nullable=False,
     )
 
     source: Mapped[DocumentSource] = mapped_column(
-        PG_ENUM(DocumentSource), default=DocumentSource.USER_UPLOAD, nullable=False
+        PG_ENUM(DocumentSource, name="document_source", create_type=True),
+        default=DocumentSource.USER_UPLOAD,
+        nullable=False,
     )
 
     version: Mapped[DocumentVersion | None] = mapped_column(
-        PG_ENUM(DocumentVersion), default=None, nullable=True
+        PG_ENUM(DocumentVersion, name="document_version", create_type=True), default=None, nullable=True
     )
+    tags: Mapped[List[str] | None] = mapped_column(String, nullable=True, default=None)
+    description: Mapped[Text | None] = mapped_column(Text, nullable=True, default=None)
 
     def __repr__(self) -> str:
         return f"<Document(title={self.title}, user_id={self.user_id}, status={self.status})>"

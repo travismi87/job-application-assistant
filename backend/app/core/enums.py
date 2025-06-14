@@ -36,20 +36,25 @@ class AssistantStepStatus(str, enum.Enum):
     FAILED = "failed"
     CANCELLED = "cancelled"
     NOT_STARTED = "not_started"
+    WAITING_FOR_USER_INPUT = "waiting_for_user_input"
 
 
 class AssistantStepType(str, enum.Enum):
     """
-    Enum representing the steps in the job application assistant process.
+    Enum representing the specific step or task in the job assistant's workflow.
     """
 
-    INITIAL = "initial"
+    PENDING = "pending"
+    INITIAL_SYNTHESIS = "initial_synthesis"
     MASTER_LIST = "master_list"
+    CANDIDATE_VALIDATION = "candidate_validation"
     TAILORED_RESUME = "tailored_resume"
     TAILORED_COVER_LETTER = "tailored_cover_letter"
-    CANDIDATE_VALIDATION = "candidate_validation"
-    APPLICATION_TIPS = "application_tips"
     HIRING_MANAGER_REVIEW = "hiring_manager_review"
+    LINKEDIN_OPTIMIZATION = "linkedin_optimization"
+    INTERVIEW_PREPARATION = "interview_preparation"
+    SKILL_DEVELOPMENT_PLAN = "skill_development_plan"
+    FINAL_CHECKLIST = "final_checklist"
 
 
 class DocumentType(str, enum.Enum):

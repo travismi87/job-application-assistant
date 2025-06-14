@@ -33,7 +33,7 @@ class User(BaseModel, TimestampMixin, SoftDeleteMixin):
     dir: Mapped[Path | None] = mapped_column(PathType, nullable=True, default=Path(""))
     sso_id: Mapped[String | None] = mapped_column(String, nullable=True, default=None)
     sso_provider: Mapped[SSOProvider | None] = mapped_column(
-        PG_ENUM(SSOProvider), nullable=True, default=None
+        PG_ENUM(SSOProvider, name="sso_provider", create_type=True), nullable=True, default=None
     )
     sso_email_verified: Mapped[Boolean] = mapped_column(Boolean, default=False, nullable=False)
     avatar_url: Mapped[String | None] = mapped_column(String, nullable=True, default=None)

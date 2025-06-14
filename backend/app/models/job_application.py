@@ -5,7 +5,7 @@ from sqlalchemy import TIMESTAMP, UUID, ForeignKey, String, func
 from sqlalchemy.dialects.postgresql import ENUM as PG_ENUM
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from ..core.enums import JobApplicationStatus, JobType
+from ..core.enums import AssistantStepStatus, AssistantStepType, JobApplicationStatus, JobType
 from .base_model import BaseModel
 from .mixins import SoftDeleteMixin, TimestampMixin
 
@@ -32,12 +32,26 @@ class JobApplication(BaseModel, TimestampMixin, SoftDeleteMixin):
         TIMESTAMP(timezone=True), server_default=func.now(), nullable=False
     )
     notes: Mapped[String | None] = mapped_column(String, nullable=True)
-    application_status: Mapped[JobApplicationStatus] = mapped_column(
-        PG_ENUM(JobApplicationStatus), default=JobApplicationStatus.PENDING, nullable=False
+    assistant_status: Mapped[AssistantStepStatus] = mapped_column(
+        PG_ENUM(AssistantStepStatus, name="assistant_step_status", create_type=True),
+        default=AssistantStepStatus.NOT_STARTED,
+        nullable=False,
     )
-    type: Mapped[JobType] = mapped_column(PG_ENUM(JobType), default=JobType.FULL_TIME, nullable=False)
+    type: Mapped[JobType] = mapped_column(
+        PG_ENUM(JobType, name="job_type", create_type=True), default=JobType.FULL_TIME, nullable=False
+    )
     assistant_steps: Mapped[List["AssistantStep"]] = relationship(
         "AssistantStep", back_populates="job_application", cascade="all, delete-orphan"
+    )
+    application_status: Mapped[JobApplicationStatus] = mapped_column(
+        PG_ENUM(JobApplicationStatus, name="job_application_status", create_type=True),
+        default=JobApplicationStatus.PENDING,
+        nullable=False,
+    )
+    assistant_current_step: Mapped[AssistantStepType] = mapped_column(
+        PG_ENUM(AssistantStepType, name="assistant_step_type", create_type=True),
+        nullable=False,
+        default=AssistantStepType.PENDING,
     )
     documents: Mapped[List["Document"]] = relationship(
         "Document", secondary="document_job_application", back_populates="job_applications"

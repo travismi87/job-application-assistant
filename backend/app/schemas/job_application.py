@@ -28,7 +28,7 @@ class JobApplicationInfo(ResponseBase):
             default=None,
             examples=["Software Engineer", "Data Analyst"],
         ),
-    ] = None
+    ]
     company_name: Annotated[
         str | None,
         Field(
@@ -38,7 +38,7 @@ class JobApplicationInfo(ResponseBase):
             default=None,
             examples=["Tech Solutions Inc.", "Global Enterprises Ltd."],
         ),
-    ] = None
+    ]
     job_location: Annotated[
         str | None,
         Field(
@@ -48,7 +48,7 @@ class JobApplicationInfo(ResponseBase):
             default=None,
             examples=["New York, NY", "Remote"],
         ),
-    ] = None
+    ]
     job_posting_url: Annotated[
         HttpUrl | None,
         Field(
@@ -56,7 +56,7 @@ class JobApplicationInfo(ResponseBase):
             default=None,
             examples=["https://company.com/jobs/123"],
         ),
-    ] = None
+    ]
     notes: Annotated[
         str | None,
         Field(
@@ -65,7 +65,7 @@ class JobApplicationInfo(ResponseBase):
             default=None,
             examples=["Follow up in two weeks", "Referred by Jane Smith"],
         ),
-    ] = None
+    ]
     job_application_status: Annotated[
         JobApplicationStatus,
         Field(
@@ -77,7 +77,7 @@ class JobApplicationInfo(ResponseBase):
                 JobApplicationStatus.REJECTED,
             ],
         ),
-    ] = JobApplicationStatus.PENDING
+    ]
     job_type: Annotated[
         JobType | None,
         Field(
@@ -89,7 +89,7 @@ class JobApplicationInfo(ResponseBase):
                 JobType.CONTRACT,
             ],
         ),
-    ] = None
+    ]
 
 
 class JobApplicationCreateRequest(RequestBase):
@@ -114,7 +114,7 @@ class JobApplicationCreateRequest(RequestBase):
             default=None,
             examples=["Software Engineer", "Data Analyst"],
         ),
-    ] = None
+    ]
     company_name: Annotated[
         str | None,
         Field(
@@ -124,7 +124,7 @@ class JobApplicationCreateRequest(RequestBase):
             default=None,
             examples=["Tech Solutions Inc.", "Global Enterprises Ltd."],
         ),
-    ] = None
+    ]
     job_location: Annotated[
         str | None,
         Field(
@@ -134,7 +134,7 @@ class JobApplicationCreateRequest(RequestBase):
             default=None,
             examples=["New York, NY", "Remote"],
         ),
-    ] = None
+    ]
     job_posting_url: Annotated[
         HttpUrl | None,
         Field(
@@ -142,7 +142,7 @@ class JobApplicationCreateRequest(RequestBase):
             default=None,
             examples=["https://company.com/jobs/123"],
         ),
-    ] = None
+    ]
     notes: Annotated[
         str | None,
         Field(
@@ -151,7 +151,7 @@ class JobApplicationCreateRequest(RequestBase):
             default=None,
             examples=["Follow up in two weeks", "Referred by Jane Smith"],
         ),
-    ] = None
+    ]
     job_application_status: Annotated[
         JobApplicationStatus | None,
         Field(
@@ -173,7 +173,7 @@ class JobApplicationCreateRequest(RequestBase):
             default=None,
             examples=["Full-time", "Part-time", "Contract"],
         ),
-    ] = None
+    ]
 
 
 class JobApplicationUpdateRequest(InternalBase):
@@ -198,7 +198,7 @@ class JobApplicationUpdateRequest(InternalBase):
             default=None,
             examples=["Software Engineer", "Data Analyst"],
         ),
-    ] = None
+    ]
     company_name: Annotated[
         str | None,
         Field(
@@ -208,7 +208,7 @@ class JobApplicationUpdateRequest(InternalBase):
             default=None,
             examples=["Tech Solutions Inc.", "Global Enterprises Ltd."],
         ),
-    ] = None
+    ]
     job_location: Annotated[
         str | None,
         Field(
@@ -218,7 +218,7 @@ class JobApplicationUpdateRequest(InternalBase):
             default=None,
             examples=["New York, NY", "Remote"],
         ),
-    ] = None
+    ]
     job_posting_url: Annotated[
         HttpUrl | None,
         Field(
@@ -226,7 +226,7 @@ class JobApplicationUpdateRequest(InternalBase):
             default=None,
             examples=["https://company.com/jobs/123"],
         ),
-    ] = None
+    ]
     notes: Annotated[
         str | None,
         Field(
@@ -235,7 +235,7 @@ class JobApplicationUpdateRequest(InternalBase):
             default=None,
             examples=["Follow up in two weeks", "Referred by Jane Smith"],
         ),
-    ] = None
+    ]
     job_application_status: Annotated[
         JobApplicationStatus | None,
         Field(
@@ -257,7 +257,7 @@ class JobApplicationUpdateRequest(InternalBase):
             default=None,
             examples=["Full-time", "Part-time", "Contract"],
         ),
-    ] = None
+    ]
 
 
 class JobApplicationListResponse(ResponseBase):

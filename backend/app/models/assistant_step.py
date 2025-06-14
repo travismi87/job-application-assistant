@@ -25,10 +25,14 @@ class AssistantStep(BaseModel, TimestampMixin, SoftDeleteMixin):
     )
 
     step_name: Mapped[AssistantStepType] = mapped_column(
-        PG_ENUM(AssistantStepType), nullable=False, default=AssistantStepType.INITIAL
+        PG_ENUM(AssistantStepType, name="assistant_step_type", create_type=True),
+        nullable=False,
+        default=AssistantStepType.PENDING,
     )
     step_status: Mapped[AssistantStepStatus] = mapped_column(
-        PG_ENUM(AssistantStepStatus), nullable=False, default=AssistantStepStatus.NOT_STARTED
+        PG_ENUM(AssistantStepStatus, name="assistant_step_status", create_type=True),
+        nullable=False,
+        default=AssistantStepStatus.NOT_STARTED,
     )
     step_order: Mapped[int] = mapped_column(Integer, nullable=True)
     previous_step_id: Mapped[UUID | None] = mapped_column(ForeignKey("assistant_step.id"), nullable=True)
